@@ -20,3 +20,5 @@ Route::get('/', function () {
 Route::get('/test', [TestController::class, 'test'])->name('test');
 Route::get('/back', [TestController::class, 'back'])->name('back');
 Route::get('/call-back', [TestController::class, 'call_back'])->name('callBack');
+
+Route::get('/test-mail', [TestController::class, 'mail_test']);

@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TestMail;
 
 class TestController extends Controller
 {
     public function test()
     {
-        $randomString = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 7);
+        $randomString = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 3);
         $data = (object)[
             'ChoosePayment' => 'ALL',
             'ClientBackURL' => route('back'),
@@ -19,10 +21,10 @@ class TestController extends Controller
             'IgnorePayment' => 'WebATM#CVS#BARCODE', //關掉不要的付款方式
             'MerchantID' => '3002607', // 後面預設值為測試API的參數
             'MerchantTradeDate' => date('Y/m/d H:i:s'),
-            'MerchantTradeNo' => 'w202309020001' . $randomString,
-            'PaymentInfoURL' => route('callBack'),
+            'MerchantTradeNo' => 'GW202309020006FPE' . $randomString,
+            'PaymentInfoURL' => 'https://demo-miki.digipack.io/demo-pay',
             'PaymentType' => 'aio',
-            'ReturnURL' => route('callBack'),
+            'ReturnURL' => 'https://demo-miki.digipack.io/demo-pay',
             'TotalAmount' => 2000,
             'TradeDesc' => '美琪蘭園',
             'CheckMacValue' => '',
@@ -53,5 +55,17 @@ class TestController extends Controller
             'mylog' => json_encode($request->all())
         ]);
         return view('return');
+    }
+
+    public function mail_test()
+    {
+        $mailData = [
+            'title' => 'Mail from ItSolutionStuff.com',
+            'body' => 'This is for testing email using smtp.'
+        ];
+         
+        Mail::to('monkey811028@gmail.com')->send(new TestMail($mailData));
+           
+        dd("Email is sent successfully.");
     }
 }
