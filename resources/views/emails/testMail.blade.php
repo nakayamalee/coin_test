@@ -14,6 +14,6 @@
     cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
     proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
      
-    <p>Thank you</p>
+    <p>Thank you, have a nice day</p>
 </body>
 </html>
